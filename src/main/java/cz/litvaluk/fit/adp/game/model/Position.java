@@ -1,16 +1,11 @@
-package cz.cvut.fit.miadp.mvcgame.model;
+package cz.litvaluk.fit.adp.game.model;
 
-public class Position
-{
-    private int dimX = 0;
+public class Position  {
+
+	private int dimX = 0;
 	private int dimY = 0;
-	
-	public Position()
-	{
-	}
 
-	public Position(int posX, int posY)
-	{
+	public Position(int posX, int posY) {
 		this.dimX = posX;
 		this.dimY = posY;
 	}
@@ -30,6 +25,5 @@ public class Position
     public void setX(int x) {
 		this.dimX = x;
 	}
-
 
 }
