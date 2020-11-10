@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import cz.litvaluk.fit.adp.game.Game;
 
-public class GameLauncher extends Application {
+public class GameJavaFxLauncher extends Application {
 
     private static final Game game = new Game();
 
@@ -56,8 +56,7 @@ public class GameLauncher extends Application {
         // the game-loop
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                // Clear the canvas
-                // gc.clearRect(0, 0, winWidth, winHeight);
+                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 game.processPressedKeys(pressedKeysCodes);
                 game.update();
                 game.render(gc);
