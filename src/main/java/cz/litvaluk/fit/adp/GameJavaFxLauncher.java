@@ -36,7 +36,7 @@ public class GameJavaFxLauncher extends Application {
         Canvas canvas = new Canvas(winWidth, winHeight);
         root.getChildren().add(canvas);
             
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        game.setGraphicsContext(canvas.getGraphicsContext2D());
 
         ArrayList<String> pressedKeysCodes = new ArrayList<>();
 
@@ -56,10 +56,8 @@ public class GameJavaFxLauncher extends Application {
         // the game-loop
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
                 game.processPressedKeys(pressedKeysCodes);
                 game.update();
-                game.render(gc);
             }
         }.start();
             
