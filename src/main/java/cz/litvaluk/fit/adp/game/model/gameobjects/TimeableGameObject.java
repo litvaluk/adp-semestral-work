@@ -1,6 +1,6 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects;
 
-public abstract class LifetimeLimitedGameObject extends GameObject {
+public abstract class TimeableGameObject extends GameObject {
 
     private final long bornAt = System.nanoTime();
 

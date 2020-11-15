@@ -41,10 +41,17 @@ public class GameView implements Observer {
         }
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         drawCannon();
+        drawMissiles();
     }
 
     private void drawCannon() {
         drawImage(new Image("images/cannon.png"), model.getCannonPosition());
+    }
+
+    private void drawMissiles() {
+        for(Position position : model.getMissilePositions()) {
+            drawImage(new Image("images/missile.png"), position);
+        }
     }
 
     private void drawImage(Image image, Position position) {

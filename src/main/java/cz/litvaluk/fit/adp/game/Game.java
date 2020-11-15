@@ -1,6 +1,7 @@
 package cz.litvaluk.fit.adp.game;
 
 import java.util.List;
+
 import cz.litvaluk.fit.adp.game.config.GameConfig;
 import cz.litvaluk.fit.adp.game.controller.GameController;
 import cz.litvaluk.fit.adp.game.model.GameModel;
@@ -27,7 +28,7 @@ public class Game {
     }
 
     public void update() {
-        // nothing yet
+        model.update();
     }
 
     public void setGraphicsContext(GraphicsContext gc) {

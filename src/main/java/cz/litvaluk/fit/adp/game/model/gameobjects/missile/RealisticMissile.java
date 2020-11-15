@@ -8,4 +8,9 @@ public class RealisticMissile extends AbstractMissile {
         this.position = position;
     }
 
+    @Override
+    public void move() {
+        // TODO
+    }
+
 }

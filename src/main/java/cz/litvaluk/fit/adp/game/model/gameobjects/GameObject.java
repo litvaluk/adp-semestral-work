@@ -4,12 +4,12 @@ public abstract class GameObject {
 
     protected Position position;
 
-    public Position getPosition() {
-        return position;
+    protected void move(Vector vector) {
+        position = position.add(vector);
     }
 
-    public void move(Vector vector) {
-        position = position.add(vector);
+    public Position getPosition() {
+        return position;
     }
 
 }
