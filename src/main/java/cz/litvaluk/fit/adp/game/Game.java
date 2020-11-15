@@ -13,7 +13,6 @@ public class Game {
     private GameController controller;
     private GameModel model;
     private GameView view;
-    private GraphicsContext gc;
 
     public void init() {
         model = new GameModel();

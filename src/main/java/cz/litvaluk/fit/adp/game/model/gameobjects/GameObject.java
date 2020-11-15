@@ -1,12 +1,8 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects;
 
-public class GameObject {
+public abstract class GameObject {
 
-    private Position position;
-
-    public GameObject(Position position) {
-        this.position = position;
-    }
+    protected Position position;
 
     public Position getPosition() {
         return position;
