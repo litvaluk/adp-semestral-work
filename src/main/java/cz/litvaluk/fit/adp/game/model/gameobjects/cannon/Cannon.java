@@ -6,6 +6,7 @@ import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Vector;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
+import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitor;
 
 public class Cannon extends GameObject {
 
@@ -26,6 +27,11 @@ public class Cannon extends GameObject {
 
     public AbstractMissile shoot() {
         return gameObjectFactory.createMissile(position.add(new Vector(10, 0)));
+    }
+
+    @Override
+    public void acceptVisitor(GameObjectVisitor visitor) {
+        visitor.visitCannon(this);
     }
 
 }

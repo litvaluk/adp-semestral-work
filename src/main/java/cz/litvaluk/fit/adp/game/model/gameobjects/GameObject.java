@@ -1,6 +1,8 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects;
 
-public abstract class GameObject {
+import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitable;
+
+public abstract class GameObject implements GameObjectVisitable {
 
     protected Position position;
 

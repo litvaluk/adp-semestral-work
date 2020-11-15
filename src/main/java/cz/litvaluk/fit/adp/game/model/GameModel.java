@@ -24,16 +24,11 @@ public class GameModel extends Subject {
         missiles = new ArrayList<>();
     }
 
-    public Position getCannonPosition() {
-        return cannon.getPosition();
-    }
-
-    public List<Position> getMissilePositions() {
-        List<Position> positions = new ArrayList<>();
-        for(AbstractMissile missile : missiles) {
-            positions.add(missile.getPosition());
-        }
-        return positions;
+    public List<GameObject> getGameObjects() {
+        List<GameObject> gameObjects = new ArrayList<>();
+        gameObjects.add(cannon);
+        gameObjects.addAll(missiles);
+        return gameObjects;
     }
 
     public void update() {
