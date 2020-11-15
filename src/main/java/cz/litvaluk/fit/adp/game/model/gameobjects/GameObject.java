@@ -6,7 +6,7 @@ public abstract class GameObject implements GameObjectVisitable {
 
     protected Position position;
 
-    protected void move(Vector vector) {
+    public void move(Vector vector) {
         position = position.add(vector);
     }
 
