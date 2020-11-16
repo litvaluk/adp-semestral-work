@@ -10,9 +10,10 @@ public class Info extends GameObject {
     private double angle = 0;
     private int score = 0;
     private double gravity = 0;
+    private String shootingMode = "";
 
-    private String fontFamily;
-    private double fontSize;
+    private final String fontFamily;
+    private final double fontSize;
 
     public Info(Position position, String fontFamily, double fontSize) {
         this.position = position;
@@ -20,11 +21,12 @@ public class Info extends GameObject {
         this.fontSize = fontSize;
     }
 
-    public void update(double force, double angle, int score, double gravity) {
+    public void update(double force, double angle, int score, double gravity, String shootingMode) {
         this.force = force;
         this.angle = angle;
         this.score = score;
         this.gravity = gravity;
+        this.shootingMode = shootingMode;
     }
 
     public String getFontFamily() {
@@ -37,7 +39,11 @@ public class Info extends GameObject {
 
     @Override
     public String toString() {
-        return "Force: " + force + ", Angle: " + angle + ", Score: " + score + ", Gravity: " + gravity;
+        return "Force: " + force + ", " +
+                "Angle: " + angle + "º, " +
+                "Score: " + score + ", " +
+                "Gravity: " + gravity + ", " +
+                "Shooting mode: " + shootingMode;
     }
 
     @Override

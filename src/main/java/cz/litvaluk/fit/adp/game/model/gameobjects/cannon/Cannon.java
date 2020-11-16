@@ -60,6 +60,10 @@ public class Cannon extends GameObject {
         shootingMode = shootingMode.nextMode();
     }
 
+    public String getShootingModeName() {
+        return shootingMode.getName();
+    }
+
     @Override
     public void acceptVisitor(GameObjectVisitor visitor) {
         visitor.visitCannon(this);
@@ -67,18 +71,30 @@ public class Cannon extends GameObject {
 
     public void increaseForce() {
         force += GameConfig.FORCE_STEP;
+        if(force > GameConfig.MAX_FORCE) {
+            force = GameConfig.MAX_FORCE;
+        }
     }
 
     public void decreaseForce() {
         force -= GameConfig.FORCE_STEP;
+        if(force < GameConfig.MIN_FORCE) {
+            force = GameConfig.MIN_FORCE;
+        }
     }
 
     public void aimUp() {
         angle += GameConfig.ANGLE_STEP;
+        if(angle > GameConfig.MAX_ANGLE) {
+            angle = GameConfig.MAX_ANGLE;
+        }
     }
 
     public void aimDown() {
         angle -= GameConfig.ANGLE_STEP;
+        if(angle < GameConfig.MIN_ANGLE) {
+            angle = GameConfig.MIN_ANGLE;
+        }
     }
 
 }

@@ -58,6 +58,8 @@ public class GameJavaFxLauncher extends Application {
                 game.update();
                 removeActiveKey("SPACE");
                 removeActiveKey("S");
+                removeActiveKey("F5");
+                removeActiveKey("F6");
             }
         }.start();
             

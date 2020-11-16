@@ -8,6 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 
 public class GameObjectRenderer implements GameObjectVisitor {
 
@@ -18,12 +19,22 @@ public class GameObjectRenderer implements GameObjectVisitor {
     }
 
     private void drawImage(Image image, Position position) {
+        drawImage(image, position, 0);
+    }
+
+    private void drawImage(Image image, Position position, double angle) {
+        double pX = position.getX() + image.getWidth()/2;
+        double pY = position.getY() + image.getHeight()/2;
+        Rotate r = new Rotate(angle, pX, pY);
+        gc.save();
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
         gc.drawImage(image, position.getX(), position.getY());
+        gc.restore();
     }
 
     @Override
     public void visitCannon(Cannon cannon) {
-        drawImage(new Image("images/cannon.png"), cannon.getPosition());
+        drawImage(new Image("images/cannon.png"), cannon.getPosition(), -cannon.getAngle());
     }
 
     @Override

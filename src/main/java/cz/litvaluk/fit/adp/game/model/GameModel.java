@@ -20,6 +20,7 @@ public class GameModel extends Subject {
     private final List<AbstractMissile> missiles;
     private final Info info;
     private int score;
+    private Object quickSave;
 
     public GameModel() {
         gameObjectFactory = new SimpleGameObjectFactory();
@@ -28,6 +29,7 @@ public class GameModel extends Subject {
         info = new Info(new Position(GameConfig.INFO_X, GameConfig.INFO_Y),
                 GameConfig.INFO_FONT_FAMILY, GameConfig.INFO_FONT_SIZE);
         score = 0;
+        quickSave = createMemento();
         updateInfo();
     }
 
@@ -46,7 +48,7 @@ public class GameModel extends Subject {
     }
 
     private void updateInfo() {
-        info.update(cannon.getForce(), cannon.getAngle(), score, GameConfig.GRAVITY);
+        info.update(cannon.getForce(), cannon.getAngle(), score, GameConfig.GRAVITY, cannon.getShootingModeName());
     }
 
     public void moveCannonUp() {
@@ -56,6 +58,26 @@ public class GameModel extends Subject {
 
     public void moveCannonDown() {
         cannon.moveDown();
+        notifyObservers();
+    }
+
+    public void cannonAimUp() {
+        cannon.aimUp();
+        notifyObservers();
+    }
+
+    public void cannonAimDown() {
+        cannon.aimDown();
+        notifyObservers();
+    }
+
+    public void cannonIncreaseForce() {
+        cannon.increaseForce();
+        notifyObservers();
+    }
+
+    public void cannonDecreaseForce() {
+        cannon.decreaseForce();
         notifyObservers();
     }
 
@@ -84,6 +106,33 @@ public class GameModel extends Subject {
 
     public void switchCannonMode() {
         cannon.switchMode();
+        updateInfo();
+        notifyObservers();
+    }
+
+    public void quickSave() {
+        quickSave = createMemento();
+    }
+
+    public void quickLoad() {
+        setMemento(quickSave);
+        updateInfo();
+        notifyObservers();
+    }
+
+    private class Memento {
+        private int score;
+    }
+
+    public Object createMemento() {
+        Memento memento = new Memento();
+        memento.score = score;
+        return memento;
+    }
+
+    public void setMemento(Object memento) {
+        Memento m = (Memento) memento;
+        score = m.score;
     }
 
 }

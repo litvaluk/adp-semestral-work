@@ -8,11 +8,11 @@ public class SimpleMissileMovementStrategy implements MissileMovementStrategy {
     @Override
     public void updatePosition(AbstractMissile missile) {
         double startingVelocity = missile.getStartingVelocity();
-        double startingAngle = missile.getStartingAngle();
+        double startingAngleRad = Math.PI * missile.getStartingAngle() / 180;
         long time = missile.getAge() / 10000000L / 2;
 
-        int dX = (int)(-startingVelocity*time*Math.cos(startingAngle));
-        int dY = (int)(startingVelocity*time*Math.sin(startingAngle));
+        int dX = (int)(-startingVelocity*time*Math.cos(-startingAngleRad));
+        int dY = (int)(startingVelocity*time*Math.sin(startingAngleRad));
 
         missile.move(new Vector(dX, dY));
     }
