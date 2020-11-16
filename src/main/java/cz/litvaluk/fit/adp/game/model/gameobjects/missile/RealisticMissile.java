@@ -5,9 +5,11 @@ import cz.litvaluk.fit.adp.game.strategy.RealisticMissileMovementStrategy;
 
 public class RealisticMissile extends AbstractMissile {
 
-    public RealisticMissile(Position position) {
+    public RealisticMissile(Position position, double startingVelocity, double startingAngle) {
         this.position = position;
         this.missileMovementStrategy = new RealisticMissileMovementStrategy();
+        this.startingVelocity = startingVelocity;
+        this.startingAngle = startingAngle;
     }
 
 }

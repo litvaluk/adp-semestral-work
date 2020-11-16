@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GameController {
 
-    private GameModel model;
+    private final GameModel model;
 
     public GameController(GameModel model) {
         this.model = model;
@@ -24,6 +24,12 @@ public class GameController {
                 case "SPACE":
                     model.cannonShoot();
                     break;
+                case "S":
+                    model.switchCannonMode();
+                    System.out.println("Mode switched!");
+                    break;
+                case "ESCAPE":
+                    System.exit(0);
                 default:
                     //nothing
             }

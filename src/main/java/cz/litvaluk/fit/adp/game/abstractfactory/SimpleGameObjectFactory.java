@@ -7,8 +7,8 @@ import cz.litvaluk.fit.adp.game.model.gameobjects.missile.SimpleMissile;
 public class SimpleGameObjectFactory implements AbstractGameObjectFactory {
 
     @Override
-    public SimpleMissile createMissile(Position position) {
-        return new SimpleMissile(position);
+    public SimpleMissile createMissile(Position position, double startingVelocity, double startingAngle) {
+        return new SimpleMissile(position, startingVelocity, startingAngle);
     }
 
     @Override

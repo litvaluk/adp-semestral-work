@@ -7,9 +7,19 @@ import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitor;
 public abstract class AbstractMissile extends TimeableGameObject {
 
     protected MissileMovementStrategy missileMovementStrategy;
+    protected double startingVelocity;
+    protected double startingAngle;
 
     public void move() {
         missileMovementStrategy.updatePosition(this);
+    }
+
+    public double getStartingVelocity() {
+        return startingVelocity;
+    }
+
+    public double getStartingAngle() {
+        return startingAngle;
     }
 
     @Override
