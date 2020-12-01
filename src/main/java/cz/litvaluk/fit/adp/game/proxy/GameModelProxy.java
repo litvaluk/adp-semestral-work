@@ -66,6 +66,21 @@ public class GameModelProxy extends AbstractGameModel {
     }
 
     @Override
+    public void spawnEnemies() {
+        subject.spawnEnemies();
+    }
+
+    @Override
+    public void moveEnemies() {
+        subject.moveEnemies();
+    }
+
+    @Override
+    public void destroyEnemies() {
+        subject.spawnEnemies();
+    }
+
+    @Override
     public void quickSave() {
         subject.quickSave();
     }

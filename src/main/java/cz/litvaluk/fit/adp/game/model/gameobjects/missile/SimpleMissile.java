@@ -1,7 +1,7 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects.missile;
 
 import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
-import cz.litvaluk.fit.adp.game.strategy.SimpleMissileMovementStrategy;
+import cz.litvaluk.fit.adp.game.strategy.missile.SimpleMissileMovementStrategy;
 
 public class SimpleMissile extends AbstractMissile {
 

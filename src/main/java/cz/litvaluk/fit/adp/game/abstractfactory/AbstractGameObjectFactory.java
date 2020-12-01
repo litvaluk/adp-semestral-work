@@ -8,5 +8,6 @@ public interface AbstractGameObjectFactory {
 
     AbstractMissile createMissile(Position position, double startingVelocity, double startingAngle);
     AbstractEnemy createEnemy(Position position);
+    AbstractEnemy createEnemyAtRandomPosition();
 
 }

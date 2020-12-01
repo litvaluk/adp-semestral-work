@@ -1,7 +1,7 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects.missile;
 
 import cz.litvaluk.fit.adp.game.model.gameobjects.TimeableGameObject;
-import cz.litvaluk.fit.adp.game.strategy.MissileMovementStrategy;
+import cz.litvaluk.fit.adp.game.strategy.missile.MissileMovementStrategy;
 import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitor;
 
 public abstract class AbstractMissile extends TimeableGameObject {

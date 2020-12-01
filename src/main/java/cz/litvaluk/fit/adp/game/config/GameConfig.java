@@ -27,4 +27,15 @@ public class GameConfig {
     public static final double MIN_ANGLE = -90.0;
     public static final double MAX_ANGLE = 90.0;
 
+    // enemy
+    public static final int ENEMY_MAX_X = 1230;
+    public static final int ENEMY_MAX_Y = 670;
+    public static final int ENEMY_MIN_X = 120;
+    public static final int ENEMY_MIN_Y = 50;
+    public static final int ENEMY_SPAWN_PERIOD = 5;
+    public static final int ENEMY_SPEED_INTERVAL_MIN = 2;
+    public static final int ENEMY_SPEED_INTERVAL_MAX = 3;
+    public static final int ENEMY_DIRECTION_INTERVAL_MIN = 1;
+    public static final int ENEMY_DIRECTION_INTERVAL_MAX = 5;
+
 }

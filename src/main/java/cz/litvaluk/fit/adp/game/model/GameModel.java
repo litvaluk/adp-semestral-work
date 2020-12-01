@@ -2,13 +2,13 @@ package cz.litvaluk.fit.adp.game.model;
 
 import cz.litvaluk.fit.adp.game.abstractfactory.AbstractGameObjectFactory;
 import cz.litvaluk.fit.adp.game.abstractfactory.RealisticGameObjectFactory;
-import cz.litvaluk.fit.adp.game.abstractfactory.SimpleGameObjectFactory;
 import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.config.GameConfig;
 import cz.litvaluk.fit.adp.game.memento.Caretaker;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
 import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
+import cz.litvaluk.fit.adp.game.model.gameobjects.enemy.AbstractEnemy;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 import cz.litvaluk.fit.adp.game.model.gameobjects.ui.info.Info;
 
@@ -23,9 +23,11 @@ public class GameModel extends AbstractGameModel {
     private AbstractGameObjectFactory gameObjectFactory;
     private final Cannon cannon;
     private final List<AbstractMissile> missiles;
+    private final List<AbstractEnemy> enemies;
     private final Info info;
     private int score;
     private Object quickSave;
+    private long lastTimeEnemySpawned;
 
     private final Queue<AbstractGameCommand> unexecutedCommands = new LinkedBlockingQueue<>();
     private final Stack<AbstractGameCommand> executedCommands = new Stack<>();
@@ -34,6 +36,8 @@ public class GameModel extends AbstractGameModel {
         gameObjectFactory = new RealisticGameObjectFactory();
         cannon = new Cannon(new Position(GameConfig.CANNON_X, GameConfig.CANNON_Y), gameObjectFactory);
         missiles = new ArrayList<>();
+        enemies = new ArrayList<>();
+        lastTimeEnemySpawned = 0;
         info = new Info(new Position(GameConfig.INFO_X, GameConfig.INFO_Y),
                 GameConfig.INFO_FONT_FAMILY, GameConfig.INFO_FONT_SIZE);
         score = 0;
@@ -46,6 +50,7 @@ public class GameModel extends AbstractGameModel {
         List<GameObject> gameObjects = new ArrayList<>();
         gameObjects.add(cannon);
         gameObjects.addAll(missiles);
+        gameObjects.addAll(enemies);
         gameObjects.add(info);
         return gameObjects;
     }
@@ -53,8 +58,11 @@ public class GameModel extends AbstractGameModel {
     @Override
     public void update() {
         executeCommands();
+        moveEnemies();
         moveMissiles();
+        destroyEnemies();
         destroyMissiles();
+        spawnEnemies();
         updateInfo();
     }
 
@@ -135,6 +143,34 @@ public class GameModel extends AbstractGameModel {
         cannon.switchMode();
         updateInfo();
         notifyObservers();
+    }
+
+    @Override
+    public void spawnEnemies() {
+        if (lastTimeEnemySpawned == 0) {
+            enemies.add(gameObjectFactory.createEnemyAtRandomPosition());
+            lastTimeEnemySpawned = System.nanoTime();
+        }
+        if (System.nanoTime() - lastTimeEnemySpawned > GameConfig.ENEMY_SPAWN_PERIOD * 1000000000L) {
+            enemies.add(gameObjectFactory.createEnemyAtRandomPosition());
+            lastTimeEnemySpawned = System.nanoTime();
+        }
+        notifyObservers();
+    }
+
+    @Override
+    public void moveEnemies() {
+        for (AbstractEnemy enemy : enemies) {
+            enemy.move();
+        }
+        if (!enemies.isEmpty()) {
+            notifyObservers();
+        }
+    }
+
+    @Override
+    public void destroyEnemies() {
+        // TODO
     }
 
     @Override

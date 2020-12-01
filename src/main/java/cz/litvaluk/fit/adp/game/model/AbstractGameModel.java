@@ -24,6 +24,10 @@ public abstract class AbstractGameModel extends Subject {
     public abstract void cannonShoot();
     public abstract void switchCannonMode();
 
+    public abstract void spawnEnemies();
+    public abstract void moveEnemies();
+    public abstract void destroyEnemies();
+
     public abstract void quickSave();
     public abstract void quickLoad();
 

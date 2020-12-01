@@ -2,6 +2,7 @@ package cz.litvaluk.fit.adp.game.visitor;
 
 import cz.litvaluk.fit.adp.game.bridge.GameGraphicsAbstraction;
 import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
+import cz.litvaluk.fit.adp.game.model.gameobjects.enemy.AbstractEnemy;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 import cz.litvaluk.fit.adp.game.model.gameobjects.ui.info.Info;
 
@@ -26,6 +27,11 @@ public class GameObjectRenderer implements GameObjectVisitor {
     @Override
     public void visitInfo(Info info) {
         gameGraphics.drawText(info.toString(), info.getPosition(), info.getFontFamily(), info.getFontSize());
+    }
+
+    @Override
+    public void visitEnemy(AbstractEnemy enemy) {
+        gameGraphics.drawImage(enemy.getImagePath(), enemy.getPosition(), 0);
     }
 
 }
