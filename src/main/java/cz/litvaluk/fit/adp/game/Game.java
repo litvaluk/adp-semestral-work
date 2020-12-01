@@ -1,15 +1,15 @@
 package cz.litvaluk.fit.adp.game;
 
-import java.util.List;
-
+import cz.litvaluk.fit.adp.game.bridge.GameGraphicsAbstraction;
 import cz.litvaluk.fit.adp.game.config.GameConfig;
 import cz.litvaluk.fit.adp.game.controller.GameController;
+import cz.litvaluk.fit.adp.game.memento.Caretaker;
 import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 import cz.litvaluk.fit.adp.game.model.GameModel;
-// in future, use Bridge to remove this dependency
 import cz.litvaluk.fit.adp.game.proxy.GameModelProxy;
 import cz.litvaluk.fit.adp.game.view.GameView;
-import javafx.scene.canvas.GraphicsContext;
+
+import java.util.List;
 
 public class Game {
 
@@ -21,6 +21,7 @@ public class Game {
         model = new GameModelProxy(new GameModel());
         view = new GameView(model);
         controller = view.getController();
+        Caretaker.getInstance().setGameModel(model);
     }
 
     public void processPressedKeys(List<String> pressedKeysCodes) {
@@ -31,8 +32,8 @@ public class Game {
         model.update();
     }
 
-    public void setGraphicsContext(GraphicsContext gc) {
-        view.setGraphicsContext(gc);
+    public void setGameGraphics(GameGraphicsAbstraction gameGraphics) {
+        view.setGameGraphics(gameGraphics);
     }
 
     public String getWindowTitle() {

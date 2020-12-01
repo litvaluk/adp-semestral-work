@@ -1,5 +1,6 @@
 package cz.litvaluk.fit.adp.game.model;
 
+import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.observer.Subject;
 
@@ -10,6 +11,9 @@ public abstract class AbstractGameModel extends Subject {
     public abstract List<GameObject> getGameObjects();
 
     public abstract void update();
+
+    public abstract void registerCommand(AbstractGameCommand cmd);
+    public abstract void undoLastCommand();
 
     public abstract void moveCannonUp();
     public abstract void moveCannonDown();

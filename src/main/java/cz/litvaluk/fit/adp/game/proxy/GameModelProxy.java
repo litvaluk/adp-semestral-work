@@ -1,5 +1,6 @@
 package cz.litvaluk.fit.adp.game.proxy;
 
+import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.observer.Observer;
@@ -82,6 +83,16 @@ public class GameModelProxy extends AbstractGameModel {
     @Override
     public void setMemento(Object memento) {
         subject.setMemento(memento);
+    }
+
+    @Override
+    public void registerCommand(AbstractGameCommand cmd) {
+        subject.registerCommand(cmd);
+    }
+
+    @Override
+    public void undoLastCommand() {
+        subject.undoLastCommand();
     }
 
     @Override

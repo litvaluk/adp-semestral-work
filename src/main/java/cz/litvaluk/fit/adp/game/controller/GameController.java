@@ -1,5 +1,9 @@
 package cz.litvaluk.fit.adp.game.controller;
 
+import cz.litvaluk.fit.adp.game.command.cannon.CannonAimDownCommand;
+import cz.litvaluk.fit.adp.game.command.cannon.*;
+import cz.litvaluk.fit.adp.game.command.save.QuickLoadCommand;
+import cz.litvaluk.fit.adp.game.command.save.QuickSaveCommand;
 import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 
 import java.util.List;
@@ -16,36 +20,44 @@ public class GameController {
         for(String code : pressedKeysCodes) {
             switch(code) {
                 case "UP":
-                    model.moveCannonUp();
+                    model.registerCommand(new MoveCannonUpCommand(model));
                     break;
                 case "DOWN":
-                    model.moveCannonDown();
+                    model.registerCommand(new MoveCannonDownCommand(model));
                     break;
                 case "SPACE":
-                    model.cannonShoot();
+                    model.registerCommand(new CannonShootCommand(model));
+//                    model.cannonShoot();
                     break;
                 case "LEFT":
-                    model.cannonAimUp();
+                    model.registerCommand(new CannonAimUpCommand(model));
+//                    model.cannonAimUp();
                     break;
                 case "RIGHT":
-                    model.cannonAimDown();
+                    model.registerCommand(new CannonAimDownCommand(model));
+//                    model.cannonAimDown();
                     break;
                 case "PERIOD":
-                    model.cannonIncreaseForce();
+                    model.registerCommand(new CannonIncreaseForceCommand(model));
+//                    model.cannonIncreaseForce();
                     break;
                 case "COMMA":
-                    model.cannonDecreaseForce();
+                    model.registerCommand(new CannonDecreaseCommand(model));
+//                    model.cannonDecreaseForce();
                     break;
                 case "S":
-                    model.switchCannonMode();
+                    model.registerCommand(new SwitchCannonModelCommand(model));
+//                    model.switchCannonMode();
                     System.out.println("Mode switched");
                     break;
                 case "F5":
-                    model.quickSave();
+                    model.registerCommand(new QuickSaveCommand(model));
+//                    model.quickSave();
                     System.out.println("Game saved");
                     break;
                 case "F6":
-                    model.quickLoad();
+                    model.registerCommand(new QuickLoadCommand(model));
+//                    model.quickLoad();
                     System.out.println("Game loaded");
                     break;
                 case "ESCAPE":

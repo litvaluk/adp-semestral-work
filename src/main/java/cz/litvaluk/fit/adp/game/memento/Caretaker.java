@@ -4,13 +4,13 @@ import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 
 public class Caretaker {
 
-    public static Caretaker INSTANCE = new Caretaker();
+    private static Caretaker INSTANCE = new Caretaker();
 
     private AbstractGameModel abstractGameModel;
 
     private Caretaker() {}
 
-    public Caretaker getInstance() {
+    public static Caretaker getInstance() {
         return INSTANCE;
     }
 

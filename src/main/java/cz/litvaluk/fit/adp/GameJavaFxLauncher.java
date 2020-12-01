@@ -1,6 +1,8 @@
 package cz.litvaluk.fit.adp;
 
 import cz.litvaluk.fit.adp.game.Game;
+import cz.litvaluk.fit.adp.game.bridge.GameGraphics;
+import cz.litvaluk.fit.adp.game.bridge.JavaFxGameGraphicsImplementor;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -37,7 +39,7 @@ public class GameJavaFxLauncher extends Application {
         Canvas canvas = new Canvas(winWidth, winHeight);
         root.getChildren().add(canvas);
             
-        game.setGraphicsContext(canvas.getGraphicsContext2D());
+        game.setGameGraphics(new GameGraphics(new JavaFxGameGraphicsImplementor(canvas.getGraphicsContext2D())));
 
         scene.setOnKeyPressed(keyEvent -> {
             String code = keyEvent.getCode().toString();

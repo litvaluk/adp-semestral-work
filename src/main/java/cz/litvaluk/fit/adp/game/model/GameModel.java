@@ -2,7 +2,9 @@ package cz.litvaluk.fit.adp.game.model;
 
 import cz.litvaluk.fit.adp.game.abstractfactory.AbstractGameObjectFactory;
 import cz.litvaluk.fit.adp.game.abstractfactory.SimpleGameObjectFactory;
+import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.config.GameConfig;
+import cz.litvaluk.fit.adp.game.memento.Caretaker;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
 import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
@@ -11,6 +13,9 @@ import cz.litvaluk.fit.adp.game.model.gameobjects.ui.info.Info;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameModel extends AbstractGameModel {
 
@@ -20,6 +25,9 @@ public class GameModel extends AbstractGameModel {
     private final Info info;
     private int score;
     private Object quickSave;
+
+    private Queue<AbstractGameCommand> unexecutedCommands = new LinkedBlockingQueue<>();
+    private Stack<AbstractGameCommand> executedCommands = new Stack<>();
 
     public GameModel() {
         gameObjectFactory = new SimpleGameObjectFactory();
@@ -43,9 +51,18 @@ public class GameModel extends AbstractGameModel {
 
     @Override
     public void update() {
+        executeCommands();
         moveMissiles();
         destroyMissiles();
         updateInfo();
+    }
+
+    private void executeCommands() {
+        while (!unexecutedCommands.isEmpty()) {
+            AbstractGameCommand cmd = unexecutedCommands.poll();
+            cmd.execute();
+            executedCommands.push(cmd);
+        }
     }
 
     private void updateInfo() {
@@ -121,12 +138,12 @@ public class GameModel extends AbstractGameModel {
 
     @Override
     public void quickSave() {
-        quickSave = createMemento();
+        quickSave = Caretaker.getInstance().createMemento();
     }
 
     @Override
     public void quickLoad() {
-        setMemento(quickSave);
+        Caretaker.getInstance().setMemento(quickSave);
         updateInfo();
         notifyObservers();
     }
@@ -146,6 +163,20 @@ public class GameModel extends AbstractGameModel {
     public void setMemento(Object memento) {
         Memento m = (Memento) memento;
         score = m.score;
+    }
+
+    @Override
+    public void registerCommand(AbstractGameCommand cmd) {
+        unexecutedCommands.add(cmd);
+    }
+
+    @Override
+    public void undoLastCommand() {
+        if (executedCommands.isEmpty()) {
+            return;
+        }
+        executedCommands.pop().revert();
+        notifyObservers();
     }
 
 }
