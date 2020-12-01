@@ -1,14 +1,14 @@
 package cz.litvaluk.fit.adp.game.controller;
 
-import cz.litvaluk.fit.adp.game.model.GameModel;
+import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 
 import java.util.List;
 
 public class GameController {
 
-    private final GameModel model;
+    private final AbstractGameModel model;
 
-    public GameController(GameModel model) {
+    public GameController(AbstractGameModel model) {
         this.model = model;
     }
 

@@ -8,12 +8,11 @@ import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
 import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 import cz.litvaluk.fit.adp.game.model.gameobjects.ui.info.Info;
-import cz.litvaluk.fit.adp.game.observer.Subject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameModel extends Subject {
+public class GameModel extends AbstractGameModel {
 
     private AbstractGameObjectFactory gameObjectFactory;
     private final Cannon cannon;
@@ -33,6 +32,7 @@ public class GameModel extends Subject {
         updateInfo();
     }
 
+    @Override
     public List<GameObject> getGameObjects() {
         List<GameObject> gameObjects = new ArrayList<>();
         gameObjects.add(cannon);
@@ -41,6 +41,7 @@ public class GameModel extends Subject {
         return gameObjects;
     }
 
+    @Override
     public void update() {
         moveMissiles();
         destroyMissiles();
@@ -51,36 +52,43 @@ public class GameModel extends Subject {
         info.update(cannon.getForce(), cannon.getAngle(), score, GameConfig.GRAVITY, cannon.getShootingModeName());
     }
 
+    @Override
     public void moveCannonUp() {
         cannon.moveUp();
         notifyObservers();
     }
 
+    @Override
     public void moveCannonDown() {
         cannon.moveDown();
         notifyObservers();
     }
 
+    @Override
     public void cannonAimUp() {
         cannon.aimUp();
         notifyObservers();
     }
 
+    @Override
     public void cannonAimDown() {
         cannon.aimDown();
         notifyObservers();
     }
 
+    @Override
     public void cannonIncreaseForce() {
         cannon.increaseForce();
         notifyObservers();
     }
 
+    @Override
     public void cannonDecreaseForce() {
         cannon.decreaseForce();
         notifyObservers();
     }
 
+    @Override
     public void cannonShoot() {
         missiles.addAll(cannon.shoot());
         notifyObservers();
@@ -104,16 +112,19 @@ public class GameModel extends Subject {
                 || gameObject.getPosition().getY() > GameConfig.MAX_Y;
     }
 
+    @Override
     public void switchCannonMode() {
         cannon.switchMode();
         updateInfo();
         notifyObservers();
     }
 
+    @Override
     public void quickSave() {
         quickSave = createMemento();
     }
 
+    @Override
     public void quickLoad() {
         setMemento(quickSave);
         updateInfo();
@@ -124,12 +135,14 @@ public class GameModel extends Subject {
         private int score;
     }
 
+    @Override
     public Object createMemento() {
         Memento memento = new Memento();
         memento.score = score;
         return memento;
     }
 
+    @Override
     public void setMemento(Object memento) {
         Memento m = (Memento) memento;
         score = m.score;

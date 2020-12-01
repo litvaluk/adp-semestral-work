@@ -4,24 +4,24 @@ import java.util.List;
 
 import cz.litvaluk.fit.adp.game.config.GameConfig;
 import cz.litvaluk.fit.adp.game.controller.GameController;
+import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 import cz.litvaluk.fit.adp.game.model.GameModel;
 // in future, use Bridge to remove this dependency
+import cz.litvaluk.fit.adp.game.proxy.GameModelProxy;
 import cz.litvaluk.fit.adp.game.view.GameView;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Game {
 
     private GameController controller;
-    private GameModel model;
+    private AbstractGameModel model;
     private GameView view;
 
     public void init() {
-        model = new GameModel();
+        model = new GameModelProxy(new GameModel());
         view = new GameView(model);
         controller = view.getController();
     }
-
-
 
     public void processPressedKeys(List<String> pressedKeysCodes) {
         controller.processPressedKeys(pressedKeysCodes);
