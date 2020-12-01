@@ -28,6 +28,8 @@ public abstract class AbstractGameModel extends Subject {
     public abstract void moveEnemies();
     public abstract void destroyEnemies();
 
+    public abstract void destroyCollisions();
+
     public abstract void quickSave();
     public abstract void quickLoad();
 

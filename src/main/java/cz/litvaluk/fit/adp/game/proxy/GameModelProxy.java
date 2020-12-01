@@ -81,6 +81,11 @@ public class GameModelProxy extends AbstractGameModel {
     }
 
     @Override
+    public void destroyCollisions() {
+        subject.destroyCollisions();
+    }
+
+    @Override
     public void quickSave() {
         subject.quickSave();
     }

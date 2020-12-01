@@ -1,6 +1,7 @@
 package cz.litvaluk.fit.adp.game.model.gameobjects.enemy;
 
 import cz.litvaluk.fit.adp.game.config.GameConfig;
+import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.model.gameobjects.TimeableGameObject;
 import cz.litvaluk.fit.adp.game.strategy.enemy.EnemyMovementStrategy;
 import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitor;
@@ -29,8 +30,6 @@ public abstract class AbstractEnemy extends TimeableGameObject {
 
     public void changeDirectionInverse() {
         enemyDirection = EnemyDirection.getInverseEnemyDirection(enemyDirection);
-        directionSwitchTime = System.nanoTime();
-        directionChangeInterval = getRandomDirectionChangeInterval();
     }
 
     public EnemyDirection getDirection() {
@@ -66,6 +65,12 @@ public abstract class AbstractEnemy extends TimeableGameObject {
     protected int getRandomSpeed() {
         return ThreadLocalRandom.current().nextInt(GameConfig.ENEMY_SPEED_INTERVAL_MIN,
                 GameConfig.ENEMY_SPEED_INTERVAL_MAX + 1);
+    }
+
+    public boolean isColliding(GameObject gameObject) {
+        int dX = Math.abs(getPosition().getX() - gameObject.getPosition().getX());
+        int dY = Math.abs(getPosition().getY() - gameObject.getPosition().getY());
+        return dX + dY < 35;
     }
 
     public boolean isOutOfBounds() {

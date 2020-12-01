@@ -8,6 +8,7 @@ import cz.litvaluk.fit.adp.game.memento.Caretaker;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Position;
 import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
+import cz.litvaluk.fit.adp.game.model.gameobjects.collision.Collision;
 import cz.litvaluk.fit.adp.game.model.gameobjects.enemy.AbstractEnemy;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 import cz.litvaluk.fit.adp.game.model.gameobjects.ui.info.Info;
@@ -24,6 +25,7 @@ public class GameModel extends AbstractGameModel {
     private final Cannon cannon;
     private final List<AbstractMissile> missiles;
     private final List<AbstractEnemy> enemies;
+    private final List<Collision> collisions;
     private final Info info;
     private int score;
     private Object quickSave;
@@ -37,6 +39,7 @@ public class GameModel extends AbstractGameModel {
         cannon = new Cannon(new Position(GameConfig.CANNON_X, GameConfig.CANNON_Y), gameObjectFactory);
         missiles = new ArrayList<>();
         enemies = new ArrayList<>();
+        collisions = new ArrayList<>();
         lastTimeEnemySpawned = 0;
         info = new Info(new Position(GameConfig.INFO_X, GameConfig.INFO_Y),
                 GameConfig.INFO_FONT_FAMILY, GameConfig.INFO_FONT_SIZE);
@@ -51,6 +54,7 @@ public class GameModel extends AbstractGameModel {
         gameObjects.add(cannon);
         gameObjects.addAll(missiles);
         gameObjects.addAll(enemies);
+        gameObjects.addAll(collisions);
         gameObjects.add(info);
         return gameObjects;
     }
@@ -61,6 +65,7 @@ public class GameModel extends AbstractGameModel {
         moveEnemies();
         moveMissiles();
         destroyEnemies();
+        destroyCollisions();
         destroyMissiles();
         spawnEnemies();
         updateInfo();
@@ -170,7 +175,31 @@ public class GameModel extends AbstractGameModel {
 
     @Override
     public void destroyEnemies() {
-        // TODO
+        if (missiles.isEmpty() || enemies.isEmpty()) {
+            return;
+        }
+        List<AbstractEnemy> colliding = new ArrayList<>();
+        for (AbstractMissile missile : missiles) {
+           for (AbstractEnemy enemy : enemies) {
+               if (enemy.isColliding(missile)) {
+                   colliding.add(enemy);
+               }
+           }
+        }
+        enemies.removeIf(colliding::contains);
+        for (AbstractEnemy enemy : colliding) {
+            collisions.add(new Collision(enemy.getPosition()));
+        }
+        notifyObservers();
+    }
+
+    @Override
+    public void destroyCollisions() {
+        if (collisions.isEmpty()) {
+            return;
+        }
+        collisions.removeIf(c -> c.getAge() > GameConfig.COLLISION_RENDER_TIME * 1000000000L);
+        notifyObservers();
     }
 
     @Override

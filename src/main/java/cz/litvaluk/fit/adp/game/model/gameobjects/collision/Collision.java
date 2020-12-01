@@ -12,7 +12,7 @@ public class Collision extends TimeableGameObject {
 
     @Override
     public void acceptVisitor(GameObjectVisitor visitor) {
-        // TODO
+        visitor.visitCollision(this);
     }
 
 }

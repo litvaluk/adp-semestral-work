@@ -20,10 +20,10 @@ public class GameConfig {
     public static final double STARTING_FORCE = 2.0;
     public static final double FORCE_STEP = 0.1;
     public static final double MIN_FORCE = 1.0;
-    public static final double MAX_FORCE = 5.0;
+    public static final double MAX_FORCE = 6.0;
     public static final double FORCE_MODIFIER = 3.0;
     public static final double STARTING_ANGLE = 0.0;
-    public static final double ANGLE_STEP = 3.0;
+    public static final double ANGLE_STEP = 2.0;
     public static final double MIN_ANGLE = -90.0;
     public static final double MAX_ANGLE = 90.0;
 
@@ -37,5 +37,8 @@ public class GameConfig {
     public static final int ENEMY_SPEED_INTERVAL_MAX = 3;
     public static final int ENEMY_DIRECTION_INTERVAL_MIN = 1;
     public static final int ENEMY_DIRECTION_INTERVAL_MAX = 5;
+
+    // collision
+    public static final int COLLISION_RENDER_TIME = 1;
 
 }
