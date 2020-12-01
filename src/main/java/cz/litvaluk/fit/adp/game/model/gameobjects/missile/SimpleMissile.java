@@ -10,6 +10,7 @@ public class SimpleMissile extends AbstractMissile {
         this.missileMovementStrategy = new SimpleMissileMovementStrategy();
         this.startingVelocity = startingVelocity;
         this.startingAngle = startingAngle;
+        this.angle = startingAngle;
     }
 
 }

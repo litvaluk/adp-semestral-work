@@ -9,6 +9,7 @@ public abstract class AbstractMissile extends TimeableGameObject {
     protected MissileMovementStrategy missileMovementStrategy;
     protected double startingVelocity;
     protected double startingAngle;
+    protected double angle;
 
     public void move() {
         missileMovementStrategy.updatePosition(this);
@@ -20,6 +21,14 @@ public abstract class AbstractMissile extends TimeableGameObject {
 
     public double getStartingAngle() {
         return startingAngle;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
     }
 
     @Override

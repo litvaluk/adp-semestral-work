@@ -10,6 +10,7 @@ public class RealisticMissile extends AbstractMissile {
         this.missileMovementStrategy = new RealisticMissileMovementStrategy();
         this.startingVelocity = startingVelocity;
         this.startingAngle = startingAngle;
+        this.angle = startingAngle;
     }
 
 }

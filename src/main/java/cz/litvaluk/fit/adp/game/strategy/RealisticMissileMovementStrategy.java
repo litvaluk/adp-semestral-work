@@ -12,10 +12,13 @@ public class RealisticMissileMovementStrategy implements MissileMovementStrategy
         double angle = Math.PI * missile.getStartingAngle() / 180;
         double timeInSec = missile.getAge() / 1000000000.0;
 
-        int dX = (int) (GameConfig.FORCE_MODIFIER * velocity * Math.cos(angle));
-        int dY = (int) -(GameConfig.FORCE_MODIFIER * velocity * Math.sin(angle) - GameConfig.GRAVITY * timeInSec);
+        double dX = GameConfig.FORCE_MODIFIER * velocity * Math.cos(angle);
+        double dY = -(GameConfig.FORCE_MODIFIER * velocity * Math.sin(angle) - GameConfig.GRAVITY * timeInSec);
 
-        missile.move(new Vector(dX, dY));
+        double unadjustedAngle = Math.atan(dX/dY) * 180/Math.PI;
+        missile.setAngle(dY > 0 ? unadjustedAngle + 270 : unadjustedAngle + 90);
+
+        missile.move(new Vector((int) dX, (int) dY));
     }
 
 }

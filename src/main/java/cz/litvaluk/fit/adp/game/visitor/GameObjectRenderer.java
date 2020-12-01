@@ -20,7 +20,7 @@ public class GameObjectRenderer implements GameObjectVisitor {
 
     @Override
     public void visitMissile(AbstractMissile missile) {
-        gameGraphics.drawImage("images/missile.png", missile.getPosition(), 0);
+        gameGraphics.drawImage("images/missile.png", missile.getPosition(), -missile.getAngle());
     }
 
     @Override
