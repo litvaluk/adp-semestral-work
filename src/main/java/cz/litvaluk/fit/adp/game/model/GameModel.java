@@ -1,6 +1,7 @@
 package cz.litvaluk.fit.adp.game.model;
 
 import cz.litvaluk.fit.adp.game.abstractfactory.AbstractGameObjectFactory;
+import cz.litvaluk.fit.adp.game.abstractfactory.RealisticGameObjectFactory;
 import cz.litvaluk.fit.adp.game.abstractfactory.SimpleGameObjectFactory;
 import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.config.GameConfig;
@@ -26,11 +27,11 @@ public class GameModel extends AbstractGameModel {
     private int score;
     private Object quickSave;
 
-    private Queue<AbstractGameCommand> unexecutedCommands = new LinkedBlockingQueue<>();
-    private Stack<AbstractGameCommand> executedCommands = new Stack<>();
+    private final Queue<AbstractGameCommand> unexecutedCommands = new LinkedBlockingQueue<>();
+    private final Stack<AbstractGameCommand> executedCommands = new Stack<>();
 
     public GameModel() {
-        gameObjectFactory = new SimpleGameObjectFactory();
+        gameObjectFactory = new RealisticGameObjectFactory();
         cannon = new Cannon(new Position(GameConfig.CANNON_X, GameConfig.CANNON_Y), gameObjectFactory);
         missiles = new ArrayList<>();
         info = new Info(new Position(GameConfig.INFO_X, GameConfig.INFO_Y),

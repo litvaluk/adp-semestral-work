@@ -1,5 +1,6 @@
 package cz.litvaluk.fit.adp.game.strategy;
 
+import cz.litvaluk.fit.adp.game.config.GameConfig;
 import cz.litvaluk.fit.adp.game.model.gameobjects.Vector;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 
@@ -7,12 +8,11 @@ public class SimpleMissileMovementStrategy implements MissileMovementStrategy {
 
     @Override
     public void updatePosition(AbstractMissile missile) {
-        double startingVelocity = missile.getStartingVelocity();
-        double startingAngleRad = Math.PI * missile.getStartingAngle() / 180;
-        long time = missile.getAge() / 10000000L / 2;
+        double velocity = missile.getStartingVelocity();
+        double angle = Math.PI * missile.getStartingAngle() / 180.0;
 
-        int dX = (int)(-startingVelocity*time*Math.cos(-startingAngleRad));
-        int dY = (int)(startingVelocity*time*Math.sin(startingAngleRad));
+        int dX = (int)(GameConfig.FORCE_MODIFIER * velocity * Math.cos(angle));
+        int dY = -(int)(GameConfig.FORCE_MODIFIER * velocity * Math.sin(angle));
 
         missile.move(new Vector(dX, dY));
     }

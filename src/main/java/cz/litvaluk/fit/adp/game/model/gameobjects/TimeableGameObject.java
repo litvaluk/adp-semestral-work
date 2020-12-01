@@ -5,7 +5,7 @@ public abstract class TimeableGameObject extends GameObject {
     private final long bornAt = System.nanoTime();
 
     public long getAge() {
-        return bornAt - System.nanoTime();
+        return System.nanoTime() - bornAt;
     }
 
 }
