@@ -3,6 +3,7 @@ package cz.litvaluk.fit.adp.game.proxy;
 import cz.litvaluk.fit.adp.game.command.AbstractGameCommand;
 import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 import cz.litvaluk.fit.adp.game.model.gameobjects.GameObject;
+import cz.litvaluk.fit.adp.game.model.gameobjects.cannon.Cannon;
 import cz.litvaluk.fit.adp.game.observer.Observer;
 
 import java.util.List;
@@ -113,6 +114,11 @@ public class GameModelProxy extends AbstractGameModel {
     @Override
     public void undoLastCommand() {
         subject.undoLastCommand();
+    }
+
+    @Override
+    public Cannon getCannon() {
+        return subject.getCannon();
     }
 
     @Override

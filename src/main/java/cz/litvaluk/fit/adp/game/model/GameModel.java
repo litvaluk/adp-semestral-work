@@ -199,7 +199,7 @@ public class GameModel extends AbstractGameModel {
         if (collisions.isEmpty()) {
             return;
         }
-        collisions.removeIf(c -> c.getAge() > GameConfig.COLLISION_RENDER_TIME * 1000000000L);
+        collisions.removeIf(c -> c.getAge() > GameConfig.COLLISION_TIME * 1000000000L);
         notifyObservers();
     }
 
@@ -272,6 +272,11 @@ public class GameModel extends AbstractGameModel {
         }
         executedCommands.pop().revert();
         notifyObservers();
+    }
+
+    @Override
+    public Cannon getCannon() {
+        return cannon;
     }
 
 }

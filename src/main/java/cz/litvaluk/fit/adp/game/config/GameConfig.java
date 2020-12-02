@@ -14,10 +14,10 @@ public class GameConfig {
 
     // cannon
     public static final int CANNON_X = 50;
-    public static final int CANNON_Y = MAX_Y/2;
+    public static final int CANNON_Y = MAX_Y / 2;
     public static final int MOVE_STEP = 6;
     public static final double GRAVITY = 9.81;
-    public static final double STARTING_FORCE = 2.0;
+    public static final double STARTING_FORCE = 3.0;
     public static final double FORCE_STEP = 0.1;
     public static final double MIN_FORCE = 1.0;
     public static final double MAX_FORCE = 6.0;
@@ -26,10 +26,11 @@ public class GameConfig {
     public static final double ANGLE_STEP = 2.0;
     public static final double MIN_ANGLE = -90.0;
     public static final double MAX_ANGLE = 90.0;
+    public static final int CANNON_MISSILE_SHIFT = 20;
 
     // enemy
-    public static final int ENEMY_MAX_X = 1230;
-    public static final int ENEMY_MAX_Y = 670;
+    public static final int ENEMY_MAX_X = MAX_X - 50;
+    public static final int ENEMY_MAX_Y = MAX_Y - 50;
     public static final int ENEMY_MIN_X = 120;
     public static final int ENEMY_MIN_Y = 50;
     public static final int ENEMY_SPAWN_PERIOD = 5;
@@ -37,8 +38,8 @@ public class GameConfig {
     public static final int ENEMY_SPEED_INTERVAL_MAX = 3;
     public static final int ENEMY_DIRECTION_INTERVAL_MIN = 1;
     public static final int ENEMY_DIRECTION_INTERVAL_MAX = 5;
+    public static final int ENEMY_COLLISION_DISTANCE = 35;
 
     // collision
-    public static final int COLLISION_RENDER_TIME = 1;
-
+    public static final double COLLISION_TIME = 1.0;
 }

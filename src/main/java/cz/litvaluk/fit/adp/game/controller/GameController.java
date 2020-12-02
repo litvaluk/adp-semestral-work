@@ -27,37 +27,29 @@ public class GameController {
                     break;
                 case "SPACE":
                     model.registerCommand(new CannonShootCommand(model));
-//                    model.cannonShoot();
                     break;
                 case "LEFT":
                     model.registerCommand(new CannonAimUpCommand(model));
-//                    model.cannonAimUp();
                     break;
                 case "RIGHT":
                     model.registerCommand(new CannonAimDownCommand(model));
-//                    model.cannonAimDown();
                     break;
                 case "PERIOD":
                     model.registerCommand(new CannonIncreaseForceCommand(model));
-//                    model.cannonIncreaseForce();
                     break;
                 case "COMMA":
                     model.registerCommand(new CannonDecreaseCommand(model));
-//                    model.cannonDecreaseForce();
                     break;
                 case "S":
                     model.registerCommand(new SwitchCannonModelCommand(model));
-//                    model.switchCannonMode();
                     System.out.println("Mode switched");
                     break;
                 case "F5":
                     model.registerCommand(new QuickSaveCommand(model));
-//                    model.quickSave();
                     System.out.println("Game saved");
                     break;
                 case "F6":
                     model.registerCommand(new QuickLoadCommand(model));
-//                    model.quickLoad();
                     System.out.println("Game loaded");
                     break;
                 case "ESCAPE":

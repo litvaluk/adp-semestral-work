@@ -8,6 +8,7 @@ import cz.litvaluk.fit.adp.game.model.gameobjects.Vector;
 import cz.litvaluk.fit.adp.game.model.gameobjects.missile.AbstractMissile;
 import cz.litvaluk.fit.adp.game.state.ShootingMode;
 import cz.litvaluk.fit.adp.game.state.SingleShootingMode;
+import cz.litvaluk.fit.adp.game.utils.Utils;
 import cz.litvaluk.fit.adp.game.visitor.GameObjectVisitor;
 
 import java.util.ArrayList;
@@ -15,11 +16,11 @@ import java.util.List;
 
 public class Cannon extends GameObject {
 
-    private AbstractGameObjectFactory gameObjectFactory;
+    private final AbstractGameObjectFactory gameObjectFactory;
     private ShootingMode shootingMode;
     private double force;
     private double angle;
-    private List<AbstractMissile> shootingBatch;
+    private final List<AbstractMissile> shootingBatch;
 
     public Cannon(Position position, AbstractGameObjectFactory gameObjectFactory) {
         this.position = position;
@@ -56,8 +57,8 @@ public class Cannon extends GameObject {
     }
 
     public void simpleShoot() {
-        int positionShift = 20;
-        double shiftedAngle = toRad(angle+270);
+        int positionShift = GameConfig.CANNON_MISSILE_SHIFT;
+        double shiftedAngle = Utils.degToRad(angle + 270);
         Vector v = new Vector(
                 (int) (-Math.cos(shiftedAngle) * positionShift),
                 (int) (Math.sin(shiftedAngle) * positionShift)
@@ -111,10 +112,6 @@ public class Cannon extends GameObject {
         if(angle < GameConfig.MIN_ANGLE) {
             angle = GameConfig.MIN_ANGLE;
         }
-    }
-
-    private double toRad(double degrees) {
-        return Math.PI * degrees / 180;
     }
 
 }

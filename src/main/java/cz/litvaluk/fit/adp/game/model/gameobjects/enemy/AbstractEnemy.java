@@ -70,14 +70,14 @@ public abstract class AbstractEnemy extends TimeableGameObject {
     public boolean isColliding(GameObject gameObject) {
         int dX = Math.abs(getPosition().getX() - gameObject.getPosition().getX());
         int dY = Math.abs(getPosition().getY() - gameObject.getPosition().getY());
-        return dX + dY < 35;
+        return dX + dY < GameConfig.ENEMY_COLLISION_DISTANCE;
     }
 
     public boolean isOutOfBounds() {
-        return position.getX() > GameConfig.ENEMY_MAX_X
-                || position.getX() < GameConfig.ENEMY_MIN_X
-                || position.getY() > GameConfig.ENEMY_MAX_Y
-                || position.getY() < GameConfig.ENEMY_MIN_Y;
+        return getPosition().getX() > GameConfig.ENEMY_MAX_X
+                || getPosition().getX() < GameConfig.ENEMY_MIN_X
+                || getPosition().getY() > GameConfig.ENEMY_MAX_Y
+                || getPosition().getY() < GameConfig.ENEMY_MIN_Y;
     }
 
 }

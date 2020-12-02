@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 
 public class JavaFxGameGraphicsImplementor implements GameGraphicsImplementor {
 
-    private GraphicsContext gc;
+    private final GraphicsContext gc;
 
     public JavaFxGameGraphicsImplementor(GraphicsContext gc) {
         this.gc = gc;

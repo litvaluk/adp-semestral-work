@@ -2,6 +2,7 @@ package cz.litvaluk.fit.adp.game.strategy.enemy;
 
 import cz.litvaluk.fit.adp.game.model.gameobjects.Vector;
 import cz.litvaluk.fit.adp.game.model.gameobjects.enemy.AbstractEnemy;
+import cz.litvaluk.fit.adp.game.utils.Utils;
 
 public class RealisticEnemyMovementStrategy implements EnemyMovementStrategy {
 
@@ -17,38 +18,34 @@ public class RealisticEnemyMovementStrategy implements EnemyMovementStrategy {
         double angle = 0;
         switch (enemy.getDirection()) {
             case LEFT:
-                angle = toRad(180);
+                angle = Utils.degToRad(180);
                 break;
             case UP_LEFT:
-                angle = toRad(135);
+                angle = Utils.degToRad(135);
                 break;
             case UP:
-                angle = toRad(90);
+                angle = Utils.degToRad(90);
                 break;
             case UP_RIGHT:
-                angle = toRad(45);
+                angle = Utils.degToRad(45);
                 break;
             case RIGHT:
-                angle = toRad(0);
+                angle = Utils.degToRad(0);
                 break;
             case DOWN_RIGHT:
-                angle = toRad(315);
+                angle = Utils.degToRad(315);
                 break;
             case DOWN:
-                angle = toRad(270);
+                angle = Utils.degToRad(270);
                 break;
             case DOWN_LEFT:
-                angle = toRad(225);
+                angle = Utils.degToRad(225);
                 break;
         }
 
         double dX = enemy.getSpeed() * Math.cos(angle);
         double dY = -(enemy.getSpeed() * Math.sin(angle));
         enemy.move(new Vector((int) dX, (int) dY));
-    }
-
-    private double toRad(double degrees) {
-        return Math.PI * degrees / 180;
     }
 
 }
