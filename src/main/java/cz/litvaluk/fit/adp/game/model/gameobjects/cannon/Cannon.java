@@ -56,7 +56,14 @@ public class Cannon extends GameObject {
     }
 
     public void simpleShoot() {
-        shootingBatch.add(gameObjectFactory.createMissile(position.add(new Vector(10, 0)), force, angle));
+        int positionShift = 20;
+        double shiftedAngle = toRad(angle+270);
+        Vector v = new Vector(
+                (int) (-Math.cos(shiftedAngle) * positionShift),
+                (int) (Math.sin(shiftedAngle) * positionShift)
+        );
+        Position startingPosition = position.add(v);
+        shootingBatch.add(gameObjectFactory.createMissile(startingPosition, force, angle));
     }
 
     public List<AbstractMissile> shoot() {
@@ -104,6 +111,10 @@ public class Cannon extends GameObject {
         if(angle < GameConfig.MIN_ANGLE) {
             angle = GameConfig.MIN_ANGLE;
         }
+    }
+
+    private double toRad(double degrees) {
+        return Math.PI * degrees / 180;
     }
 
 }

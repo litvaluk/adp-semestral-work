@@ -4,7 +4,7 @@ import cz.litvaluk.fit.adp.game.model.AbstractGameModel;
 
 public class Caretaker {
 
-    private static Caretaker INSTANCE = new Caretaker();
+    private static final Caretaker INSTANCE = new Caretaker();
 
     private AbstractGameModel abstractGameModel;
 
