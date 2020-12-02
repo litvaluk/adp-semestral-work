@@ -17,4 +17,14 @@ public class SimpleEnemy extends AbstractEnemy {
         this.imagePath = ThreadLocalRandom.current().nextInt(2) == 0 ? "images/enemy1.png" : "images/enemy2.png";
     }
 
+    public SimpleEnemy(AbstractEnemy enemy) {
+        this.position = new Position(enemy.getPosition().getX(), enemy.getPosition().getY());
+        this.enemyDirection = enemy.getDirection();
+        this.directionSwitchTime = System.nanoTime();
+        this.directionChangeInterval = enemy.getRandomDirectionChangeInterval();
+        this.speed = enemy.getSpeed();
+        this.enemyMovementStrategy = new SimpleEnemyMovementStrategy();
+        this.imagePath = enemy.getImagePath();
+    }
+
 }

@@ -30,6 +30,15 @@ public class Cannon extends GameObject {
         this.shootingBatch = new ArrayList<>();
     }
 
+    public Cannon(Cannon cannon) {
+        this.position = new Position(cannon.getPosition().getX(), cannon.getPosition().getY());
+        this.gameObjectFactory = cannon.gameObjectFactory;
+        this.shootingMode = cannon.shootingMode;
+        this.force = cannon.getForce();
+        this.angle = cannon.getAngle();
+        this.shootingBatch = new ArrayList<>();
+    }
+
     public double getForce() {
         return force;
     }

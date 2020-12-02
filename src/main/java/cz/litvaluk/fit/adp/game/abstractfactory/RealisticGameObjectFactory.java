@@ -25,7 +25,24 @@ public class RealisticGameObjectFactory implements AbstractGameObjectFactory {
     public AbstractEnemy createEnemyAtRandomPosition() {
         int randomX = ThreadLocalRandom.current().nextInt(GameConfig.ENEMY_MIN_X, GameConfig.ENEMY_MAX_X);
         int randomY = ThreadLocalRandom.current().nextInt(GameConfig.ENEMY_MIN_Y, GameConfig.ENEMY_MAX_Y);
-        return new RealisticEnemy(new Position(randomX, randomY));
+        return createEnemy(new Position(randomX, randomY));
+    }
+
+    @Override
+    public AbstractEnemy createEnemyCopy(AbstractEnemy enemy) {
+        AbstractEnemy newEnemy = new RealisticEnemy(enemy);
+        newEnemy.addToBornAt(-enemy.getAge());
+        return newEnemy;
+    }
+
+    @Override
+    public AbstractMissile createMissileCopy(AbstractMissile missile) {
+        AbstractMissile newMissile = createMissile(new Position(missile.getPosition().getX(),
+                missile.getPosition().getY()),
+                missile.getStartingVelocity(),
+                missile.getStartingAngle());
+        newMissile.addToBornAt(-missile.getAge());
+        return newMissile;
     }
 
 }

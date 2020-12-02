@@ -21,8 +21,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class GameModel extends AbstractGameModel {
 
-    private AbstractGameObjectFactory gameObjectFactory;
-    private final Cannon cannon;
+    private final AbstractGameObjectFactory gameObjectFactory;
+    private Cannon cannon;
     private final List<AbstractMissile> missiles;
     private final List<AbstractEnemy> enemies;
     private final List<Collision> collisions;
@@ -188,6 +188,7 @@ public class GameModel extends AbstractGameModel {
         }
         enemies.removeIf(colliding::contains);
         for (AbstractEnemy enemy : colliding) {
+            score += enemy.getSpeed();
             collisions.add(new Collision(enemy.getPosition()));
         }
         notifyObservers();
@@ -214,21 +215,49 @@ public class GameModel extends AbstractGameModel {
         notifyObservers();
     }
 
-    private class Memento {
+    private static class Memento {
         private int score;
+        private long timestamp;
+        private final List<AbstractMissile> missiles = new ArrayList<>();
+        private final List<AbstractEnemy> enemies = new ArrayList<>();
+        private final List<Collision> collisions = new ArrayList<>();
+        private Cannon cannon;
     }
 
     @Override
     public Object createMemento() {
         Memento memento = new Memento();
         memento.score = score;
+        memento.timestamp = System.nanoTime();
+        missiles.forEach(x -> memento.missiles.add(gameObjectFactory.createMissileCopy(x)));
+        enemies.forEach(x -> memento.enemies.add(gameObjectFactory.createEnemyCopy(x)));
+        collisions.forEach(x -> {
+            Collision newCollision = new Collision(new Position(x.getPosition().getX(), x.getPosition().getY()));
+            memento.collisions.add(newCollision);
+        });
+        memento.cannon = new Cannon(cannon);
         return memento;
     }
 
     @Override
     public void setMemento(Object memento) {
         Memento m = (Memento) memento;
+        long timeDiff = System.nanoTime() - m.timestamp;
         score = m.score;
+        missiles.clear();
+        enemies.clear();
+        collisions.clear();
+        m.missiles.forEach(x -> missiles.add(gameObjectFactory.createMissileCopy(x)));
+        m.enemies.forEach(x-> enemies.add(gameObjectFactory.createEnemyCopy(x)));
+        m.collisions.forEach(x -> {
+            Collision newCollision = new Collision(new Position(x.getPosition().getX(), x.getPosition().getY()));
+            newCollision.addToBornAt(-x.getAge());
+            collisions.add(newCollision);
+        });
+        missiles.forEach(x -> x.addToBornAt(timeDiff));
+        enemies.forEach(x -> x.addToBornAt(timeDiff));
+        collisions.forEach(x -> x.addToBornAt(timeDiff));
+        cannon = new Cannon(m.cannon);
     }
 
     @Override

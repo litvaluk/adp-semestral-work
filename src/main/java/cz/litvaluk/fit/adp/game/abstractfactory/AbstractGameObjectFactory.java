@@ -10,4 +10,7 @@ public interface AbstractGameObjectFactory {
     AbstractEnemy createEnemy(Position position);
     AbstractEnemy createEnemyAtRandomPosition();
 
+    AbstractEnemy createEnemyCopy(AbstractEnemy enemy);
+    AbstractMissile createMissileCopy(AbstractMissile abstractMissile);
+
 }
